@@ -23,18 +23,13 @@ class CatBreedTableViewCell: UITableViewCell {
     }
     
     func configure(catBreedModel: CatBreedModel?) {
-        if let name = catBreedModel?.name {
+        if let name = catBreedModel?.name,
+            let originCountry = catBreedModel?.origin,
+            let intelligence = catBreedModel?.intelligence,
+            let catImageData = catBreedModel?.catImageData {
             breedNameLabel.text = name
-        }
-        if let originCountry = catBreedModel?.origin {
             originCountryLabel.text = originCountry
-        }
-        
-        if let intelligence = catBreedModel?.intelligence {
             intelligenceLabel.text = String(intelligence)
-        }
-        
-        if let catImageData = catBreedModel?.catImageData {
             breedImage.image = UIImage(data: catImageData)
         }
     }
