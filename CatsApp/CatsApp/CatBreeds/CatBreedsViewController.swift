@@ -60,6 +60,9 @@ extension CatBreedsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CatBreedTableViewCell", for: indexPath) as? CatBreedTableViewCell else { return UITableViewCell() }
+        if let catImageUrl = catBreedCollection[indexPath.row].image?.url {
+            catBreedCollection[indexPath.row].setImageData()
+        }
         cell.configure(catBreedModel: catBreedCollection[indexPath.row])
         return cell
     }

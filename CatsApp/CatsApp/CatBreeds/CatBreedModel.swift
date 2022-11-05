@@ -12,6 +12,13 @@ struct CatBreedModel: Codable {
     let origin: String?
     let intelligence: Int?
     let image: CatBreedImage?
+    var catImageData: Data?
+    
+    mutating func setImageData() {
+        guard let url = URL(string: (self.image?.url)!) else { return }
+        guard let data = try? Data(contentsOf: url) else { return }
+        self.catImageData = data
+    }
 }
 
 struct CatBreedImage: Codable {

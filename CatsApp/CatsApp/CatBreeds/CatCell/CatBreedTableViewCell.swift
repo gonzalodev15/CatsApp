@@ -16,13 +16,10 @@ class CatBreedTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func configure(catBreedModel: CatBreedModel?) {
@@ -37,11 +34,8 @@ class CatBreedTableViewCell: UITableViewCell {
             intelligenceLabel.text = String(intelligence)
         }
         
-        if let imageUrl = catBreedModel?.image?.url {
-            guard let url = URL(string: imageUrl) else { return }
-            guard let data = try? Data(contentsOf: url) else { return }
-            breedImage.image = UIImage(data: data)
+        if let catImageData = catBreedModel?.catImageData {
+            breedImage.image = UIImage(data: catImageData)
         }
-        
     }
 }
