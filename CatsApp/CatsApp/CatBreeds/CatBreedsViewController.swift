@@ -16,6 +16,9 @@ class CatBreedsViewController: UIViewController {
         super.viewDidLoad()
         //self.catBreedsTableView.delegate = self
         self.catBreedsTableView.dataSource = self
+        catBreedsTableView.register(UINib(nibName: "CatBreedTableViewCell", bundle: nil), forCellReuseIdentifier: "CatBreedTableViewCell")
+
+
         callApi()
     }
     
@@ -39,8 +42,9 @@ class CatBreedsViewController: UIViewController {
             }
 
             self.catBreedCollection = catBreeds
-            self.catBreedsTableView.reloadData()
-            
+            DispatchQueue.main.async {
+                self.catBreedsTableView.reloadData()
+            }
         }
         
         task.resume()
@@ -51,11 +55,11 @@ class CatBreedsViewController: UIViewController {
 
 extension CatBreedsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        catBreedCollection.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = CatBreedTableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CatBreedTableViewCell", for: indexPath) as? CatBreedTableViewCell else { return UITableViewCell() }
         cell.configure(catBreedModel: catBreedCollection[indexPath.row])
         return cell
     }
